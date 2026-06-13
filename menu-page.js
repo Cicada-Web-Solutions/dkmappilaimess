@@ -1,6 +1,6 @@
 /**
  * menu-page.js — Full menu page logic for DK's Mappillai Mess menu.html
- * Relies on menuData being defined in script-v1.1.js (loaded first).
+ * Relies on menuData being defined in script.js (loaded first).
  * Features:
  *  - Full 18-category accordion menu
  *  - Search with RAF debounce

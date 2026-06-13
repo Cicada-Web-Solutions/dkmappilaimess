@@ -14,9 +14,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Bungee&family=Lilita+One&family=Noto+Sans+Tamil:wght@400;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preload" href="assets/logo.png" as="image">
-  <link rel="stylesheet" href="style-v1.1.css">
+  <!-- Main Stylesheet (shared with index.html) -->
+  <link rel="stylesheet" href="style.css">
   <style>
-    /* ── Menu Page Specific Styles ── */
+    /* ============================================================
+       MENU PAGE — Page-specific styles (only apply to menu.html)
+       These augment the shared style.css without duplicating it.
+       Sections:
+         a) Page Hero (header bar with title + stats)
+         b) Sidebar TOC (sticky category jump links, desktop only)
+         c) Full Menu Controls (search + filter, sticky)
+         d) Category Accordion Groups (.full-menu-group)
+         e) Menu Items (.full-menu-item)
+         f) Responsive overrides (tablet + mobile)
+       ============================================================ */
+
+    /* ── a) PAGE HERO ────────────────────────────────────────── */
     .menu-page-hero {
       background:
         linear-gradient(135deg, rgba(22, 139, 58, 0.12), rgba(255, 255, 255, 0.22)),
@@ -93,7 +106,8 @@
     .menu-stat-chip.veg { background: #cff5a2; }
     .menu-stat-chip.nonveg { background: #ffc7c7; }
 
-    /* ── Main layout: sidebar + content ── */
+    /* ── b) SIDEBAR TOC ──────────────────────────────────────── */
+    /* Sticky category jump links visible on desktop (>900px) */
     .menu-page-layout {
       display: grid;
       grid-template-columns: 240px minmax(0, 1fr);
@@ -166,7 +180,8 @@
       background: var(--white);
     }
 
-    /* ── Full menu content ── */
+    /* ── c) FULL MENU CONTROLS ───────────────────────────────── */
+    /* Sticky search + filter row at top of menu content area */
     .menu-full-content {
       display: grid;
       gap: 0;
@@ -219,7 +234,7 @@
       color: var(--white);
     }
 
-    /* ── Category accordion sections ── */
+    /* ── d) CATEGORY ACCORDION GROUPS ─────────────────────────── */
     .full-menu-group {
       border: var(--outline);
       border-radius: var(--radius);
@@ -339,7 +354,7 @@
       font-weight: 900;
     }
 
-    /* ── Empty state ── */
+    /* ── e) EMPTY STATE ──────────────────────────────────────── */
     .full-empty-menu {
       padding: 3rem;
       border: var(--outline);
@@ -351,7 +366,7 @@
       font-size: 1.1rem;
     }
 
-    /* ── Responsive ── */
+    /* ── f) RESPONSIVE OVERRIDES ─────────────────────────────── */
     @media (max-width: 900px) {
       .menu-page-layout {
         grid-template-columns: 1fr;
@@ -383,6 +398,10 @@
 </head>
 <body>
   <div class="site-shell">
+    <!-- ======================================================
+         NAVBAR — Same structure as index.html navbar
+         All nav links point back to index.html#anchor
+         ====================================================== -->
     <nav class="navbar" aria-label="Primary navigation">
       <div class="container nav-inner">
         <a class="brand" href="index.html#home" aria-label="DK's Mappillai Mess home">
@@ -411,7 +430,9 @@
     </nav>
 
     <main>
-      <!-- Page Hero -->
+      <!-- ====================================================
+           PAGE HERO — Title, back button, menu stats bar
+           ==================================================== -->
       <div class="menu-page-hero">
         <div class="container">
           <div class="menu-page-hero-inner">
@@ -434,17 +455,25 @@
         </div>
       </div>
 
-      <!-- Menu Page Layout -->
+      <!-- ====================================================
+           MENU PAGE LAYOUT — Sidebar TOC + Full Menu Content
+           ==================================================== -->
       <div class="container">
         <div class="menu-page-layout">
 
-          <!-- Sidebar TOC (desktop only) -->
+          <!-- ================================================
+               SIDEBAR TOC — Desktop only sticky jump links
+               Populated by menu-page.js into #menu-toc
+               ================================================ -->
           <aside class="menu-toc" id="menu-toc" aria-label="Jump to category">
             <div class="menu-toc-title">Jump to Category</div>
             <!-- Populated by JS -->
           </aside>
 
-          <!-- Main content -->
+          <!-- ================================================
+               FULL MENU CONTENT — Search + filters + groups
+               All menu groups injected by menu-page.js
+               ================================================ -->
           <div class="menu-full-content">
 
             <!-- Sticky controls -->
@@ -488,10 +517,17 @@
             </a>
           </div>
         </div>
+        <!-- Copyright bar -->
+        <div class="footer-copyright">
+          Made by <strong>Cicada Web Solutions</strong>
+        </div>
+
       </div>
     </footer>
 
-    <!-- Mobile Action Bar -->
+    <!-- ======================================================
+         MOBILE ACTION BAR — Fixed bottom quick-action strip
+         ====================================================== -->
     <div class="mobile-action-bar" aria-label="Quick actions">
       <a href="tel:9841273193" aria-label="Call DK's Mappillai Mess">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.3-.3.73-.4 1.12-.27 1.23.4 2.55.62 3.91.62.62 0 1.12.5 1.12 1.12v3.49c0 .62-.5 1.12-1.12 1.12C10.58 21.26 2.74 13.42 2.74 3.56c0-.62.5-1.12 1.12-1.12h3.5c.62 0 1.12.5 1.12 1.12 0 1.36.21 2.68.62 3.91.12.39.03.82-.28 1.12l-2.2 2.2Z"/></svg>
@@ -512,8 +548,11 @@
     </div>
   </div>
 
+  <!-- GSAP (needed for scroll effects via script.js isHomePage guard) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="script-v1.1.js"></script>
+  <!-- Shared site script (homepage guards via isHomePage flag) -->
+  <script src="script.js"></script>
+  <!-- Menu page specific logic (accordion, TOC, search, filters) -->
   <script src="menu-page.js"></script>
 </body>
 </html>
