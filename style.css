@@ -1210,6 +1210,12 @@ p {
   font-weight: 800;
 }
 
+/* =============================================================
+   10. FEATURED DISHES
+   Homepage replacement for the old menu preview. Cards use
+   optimized AI-generated WebP food images and hide prices.
+   ============================================================= */
+.featured-dishes,
 .menu-wall {
   background:
     linear-gradient(135deg, rgba(22, 139, 58, 0.15), rgba(255, 255, 255, 0.22)),
@@ -1220,6 +1226,112 @@ p {
       )
       0 0 / 32px 32px;
 }
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.5rem);
+}
+
+.featured-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  border: var(--outline);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.featured-card:hover,
+.featured-card:focus-within {
+  transform: translate(-3px, -3px) rotate(-0.5deg);
+  box-shadow: 11px 11px 0 var(--ink);
+}
+
+.featured-image {
+  margin: 0;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-bottom: var(--outline);
+  background: var(--cream);
+}
+
+.featured-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 260ms ease;
+}
+
+.featured-card:hover .featured-image img {
+  transform: scale(1.04);
+}
+
+.featured-content {
+  display: grid;
+  align-content: start;
+  gap: 0.72rem;
+  padding: clamp(0.9rem, 2vw, 1.15rem);
+}
+
+.featured-content h3 {
+  color: var(--purple);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+}
+
+.featured-content p {
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.dish-label,
+.dish-type {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.28rem 0.55rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--yellow);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.dish-type.non-veg {
+  background: #ffc7c7;
+  color: var(--ink);
+}
+
+.featured-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 0 0;
+  text-align: center;
+}
+
+.featured-note {
+  max-width: 720px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--purple);
+}
+
+/* =============================================================
+   10b. MENU UTILITIES
+   Shared controls/item styles retained for menu.html and legacy
+   menu rendering helpers.
+   ============================================================= */
 
 .menu-controls {
   display: grid;
@@ -1822,9 +1934,26 @@ p {
 }
 
 .footer-brand {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  max-width: 100%;
+}
+
+.footer-brand-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.footer-brand-copy {
   display: grid;
   gap: 1rem;
-  max-width: 600px;
+  min-width: 0;
+  max-width: 560px;
 }
 
 .footer-logo {
@@ -1843,7 +1972,7 @@ p {
   color: var(--white);
   white-space: nowrap;
   text-shadow:
-    4px 4px 0 var(--red),
+    4px 4px 0 #d4af37,
     7px 7px 0 var(--purple);
 }
 
@@ -1878,6 +2007,46 @@ p {
   justify-content: flex-end;
 }
 
+.footer-social-stack {
+  display: grid;
+  justify-items: end;
+  gap: 0.75rem;
+  max-width: 720px;
+}
+
+.footer-contact-list {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+  color: var(--cream);
+  font-weight: 700;
+  text-align: right;
+  margin-top: 0.2rem;
+  margin-left: auto;
+  max-width: 460px;
+}
+
+.footer-contact-list p {
+  line-height: 1.45;
+}
+
+.footer-contact-list span {
+  color: var(--yellow);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.footer-contact-list a {
+  color: var(--white);
+  font-weight: 900;
+  transition: color 180ms ease;
+}
+
+.footer-contact-list a:hover,
+.footer-contact-list a:focus-visible {
+  color: var(--yellow);
+}
+
 .footer-social-icons a {
   width: 3.2rem;
   height: 3.2rem;
@@ -1907,15 +2076,15 @@ p {
 }
 
 .footer-social-icons a[aria-label="Instagram"]:hover {
-  background: #f7a1cf;
+  background: #e1306c;
 }
 
 .footer-social-icons a[aria-label="Facebook"]:hover {
-  background: #9ec8ff;
+  background: #1877f2;
 }
 
 .footer-social-icons a[aria-label="WhatsApp"]:hover {
-  background: #dbffd9;
+  background: #25d366;
 }
 
 .footer-bottom {
@@ -1923,7 +2092,7 @@ p {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: wrap;
   gap: 1.2rem;
   padding-top: 1.2rem;
@@ -1936,12 +2105,9 @@ p {
   margin: 0;
 }
 
-.credit a {
-  transition: color 180ms ease;
-}
-
-.credit a:hover {
+.credit strong {
   color: var(--yellow);
+  font-weight: 900;
 }
 
 .footer-copyright {
@@ -2116,6 +2282,10 @@ p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .featured-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .menu-groups {
     display: block;
     columns: 2;
@@ -2250,6 +2420,7 @@ p {
     right: 39%;
   }
   .time-grid,
+  .featured-grid,
   .social-grid,
   .footer-grid {
     grid-template-columns: 1fr;
@@ -2320,6 +2491,29 @@ p {
     padding-bottom: 1.5rem;
   }
 
+  .footer-social-stack,
+  .footer-contact-list {
+    justify-items: start;
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .footer-brand {
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 100%;
+  }
+
+  .footer-brand-main {
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 100%;
+  }
+
+  .footer-contact-list {
+    margin-left: 0;
+  }
+
   .footer-social-icons {
     justify-content: flex-start;
     margin-top: 0;
@@ -2340,6 +2534,7 @@ p {
     min-width: 0;
     overflow: hidden;
     white-space: nowrap;
+    font-size: 0.58rem;
   }
 
   .break-mobile {

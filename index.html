@@ -13,7 +13,9 @@
 
   <!-- Primary Meta -->
   <meta name="description"
-    content="Playful official-style website for DK's Mappillai Mess serving breakfast, meals, biryani, parotta, grill, gravies, drinks and more.">
+    content="DK's Mappillai Mess in Karunguzhi, Maduranthakam serves South Indian breakfast, Chettinad meals, biryani, parotta, grill, gravies, seafood, drinks and more.">
+  <meta name="keywords"
+    content="DK's Mappillai Mess, Karunguzhi restaurant, Maduranthakam food, South Indian mess, Chettinad meals, chicken biryani, mutton kari dosa, fish fry, non veg meals">
   <meta name="theme-color" content="#FFB000">
 
   <!-- Open Graph / Social Preview -->
@@ -21,6 +23,7 @@
   <meta property="og:description"
     content="Breakfast, meals, biryani, parotta, grill, gravies, drinks and more with full-on South Indian mess flavour.">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DK's Mappillai Mess">
   <meta property="og:image" content="assets/logo.png">
 
   <!-- Google Fonts -->
@@ -38,6 +41,9 @@
     "name": "DK's Mappillai Mess",
     "image": "assets/logo.png",
     "telephone": "+919841273193",
+    "url": "index.html",
+    "hasMenu": "menu.html",
+    "openingHours": "Mo-Su 07:00-23:00",
     "servesCuisine": ["South Indian", "Tamil", "Biryani", "Vegetarian", "Non-Vegetarian"],
     "priceRange": "$$",
     "address": {
@@ -89,7 +95,7 @@
         <!-- Desktop Nav Links -->
         <div class="nav-links" id="nav-links">
           <a href="#home">Home</a>
-          <a href="#menu">Menu</a>
+          <a href="#featured-dishes">Featured Dishes</a>
           <a href="#signatures">Specials</a>
           <a href="#reviews">Reviews</a>
           <a href="#visit">Visit</a>
@@ -136,12 +142,12 @@
             <p class="hero-subtitle hero-animate">From hot idli and crispy dosa to spicy biryani, meals, grill, parotta,
               gravies and chill drinks - DK's Mappillai Mess serves full-on flavour.</p>
             <div class="hero-buttons hero-animate" aria-label="Hero actions">
-              <a class="btn yellow magnetic" href="#menu">
+              <a class="btn yellow magnetic" href="menu.html">
                 <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true">
                   <path fill="currentColor"
                     d="M4 3h16a1 1 0 0 1 1 1v15a2 2 0 0 1-2 2H6a3 3 0 0 1-3-3V4a1 1 0 0 1 1-1Zm2 14a1 1 0 0 0 0 2h13V5H5v12.17c.31-.11.65-.17 1-.17Zm2-9h8v2H8V8Zm0 4h8v2H8v-2Z" />
                 </svg>
-                View Menu
+                View Full Menu
               </a>
               <a class="btn purple magnetic" href="https://www.instagram.com/dkmappillaimess/" target="_blank" rel="noopener">
                 <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -361,43 +367,82 @@
       <!-- /SECTION 3 — SIGNATURE PICKS -->
 
       <!-- =======================================================
-           SECTION 4 — MENU WALL (Homepage Preview)
-           Shows a PREVIEW of 3 categories (Meals, Biryani,
-           Chicken Starters) out of 18 total. Filter tags and
-           search are rendered by JS. A "View Full Menu" CTA
-           links to the dedicated menu.html page.
+           SECTION 4 - FEATURED DISHES
+           Static homepage highlights from the real menu.
+           Prices stay on the dedicated menu page.
            ======================================================= -->
-      <section class="menu-wall section reveal" id="menu" aria-labelledby="menu-title">
+      <section class="featured-dishes section reveal" id="featured-dishes" aria-labelledby="featured-dishes-title">
         <!-- Decorative background doodles -->
         <span class="shape-doodle doodle-ring" style="left:4%;top:8%;"></span>
         <span class="shape-doodle doodle-zig" style="right:2%;bottom:7%;"></span>
         <div class="container">
           <div class="section-heading">
-            <span class="eyebrow">Menu Wall</span>
-            <h2 id="menu-title">Mappillai Menu Wall</h2>
-            <p class="lead">A loud mess board of breakfast, meals, biryani, grill, gravy, drinks and more.</p>
+            <span class="eyebrow">Featured Dishes</span>
+            <h2 id="featured-dishes-title">Mess Favourites To Try</h2>
+            <p class="lead">Popular South Indian veg and non-veg dishes from the DK's Mappillai Mess menu, shown without prices for a cleaner homepage.</p>
           </div>
 
-          <!-- Search + Category filter (built by renderFilters() in JS) -->
-          <div class="menu-controls" aria-label="Menu filters">
-            <label class="search-wrap" for="menu-search">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="currentColor"
-                  d="m21 19.6-5.2-5.2a7.4 7.4 0 1 0-1.4 1.4l5.2 5.2L21 19.6ZM5 10a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z" />
-              </svg>
-              <input id="menu-search" type="search" placeholder="Search dosa, biryani, mojito..." autocomplete="off">
-            </label>
-            <!-- Filter tag buttons injected by JS into #filter-row -->
-            <div class="filter-tags-wrap" id="filter-row" role="list" aria-label="Menu categories"></div>
-            <p class="menu-note">Prices may vary. Please call to confirm.</p>
+          <!-- Featured dish cards -->
+          <div class="featured-grid" aria-label="Featured dishes from the DK's Mappillai Mess menu">
+            <article class="featured-card">
+              <figure class="featured-image">
+                <img src="assets/featured-chicken-biryani.webp" width="900" height="900"
+                  alt="Chicken Biryani with chicken pieces, boiled egg, raita and salna at DK's Mappillai Mess"
+                  loading="lazy">
+              </figure>
+              <div class="featured-content">
+                <span class="dish-label">Menu Category: Biryani</span>
+                <h3>Chicken Biryani</h3>
+                <p>Seeraga samba-style rice, warm spices, chicken pieces and classic mess-side comfort.</p>
+                <span class="dish-type non-veg">Dish Type: Non-Veg</span>
+              </div>
+            </article>
+            <article class="featured-card">
+              <figure class="featured-image">
+                <img src="assets/featured-mutton-kari-dosa.webp" width="900" height="900"
+                  alt="Mutton Kari Dosa topped with spicy mutton kari, onions and curry leaves"
+                  loading="lazy">
+              </figure>
+              <div class="featured-content">
+                <span class="dish-label">Menu Category: Dosa Varieties</span>
+                <h3>Mutton Kari Dosa</h3>
+                <p>Thick kal dosa loaded with peppery mutton kari, crisp edges and rich Tamil mess flavour.</p>
+                <span class="dish-type non-veg">Dish Type: Non-Veg</span>
+              </div>
+            </article>
+            <article class="featured-card">
+              <figure class="featured-image">
+                <img src="assets/featured-fish-vanjaram-fry.webp" width="900" height="900"
+                  alt="Fish Vanjaram Fry with red masala, curry leaves, lemon and onion rings"
+                  loading="lazy">
+              </figure>
+              <div class="featured-content">
+                <span class="dish-label">Menu Category: Sea Food</span>
+                <h3>Fish Vanjaram Fry</h3>
+                <p>A coastal-style seer fish fry with crisp masala crust, lemon, onion and curry leaves.</p>
+                <span class="dish-type non-veg">Dish Type: Non-Veg</span>
+              </div>
+            </article>
+            <article class="featured-card">
+              <figure class="featured-image">
+                <img src="assets/featured-non-veg-chettinad-meals.webp" width="900" height="900"
+                  alt="Non-Veg Chettinad Meals on banana leaf with rice, chicken gravy, fish curry and appalam"
+                  loading="lazy">
+              </figure>
+              <div class="featured-content">
+                <span class="dish-label">Menu Category: Meals</span>
+                <h3>Non-Veg Chettinad Meals</h3>
+                <p>Banana leaf lunch energy with rice, kuzhambu, sides, appalam and full Chettinad depth.</p>
+                <span class="dish-type non-veg">Dish Type: Non-Veg</span>
+              </div>
+            </article>
           </div>
 
-          <!-- Menu item groups injected by renderMenu() in JS -->
-          <div class="menu-groups" id="menu-groups" aria-live="polite"></div>
+          
 
           <!-- View Full Menu CTA — links to menu.html -->
-          <div class="menu-preview-footer">
-            <p class="menu-preview-note">Showing 3 of 18 categories &mdash; Meals, Biryani &amp; Chicken Starters</p>
+          <div class="featured-footer">
+            <p class="featured-note">Featured dishes are selected from the full restaurant menu. Prices are available on the menu page or by phone.</p>
             <a class="view-more-btn magnetic" href="menu.html" id="view-full-menu-btn">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path fill="currentColor"
@@ -408,7 +453,7 @@
           </div>
         </div>
       </section>
-      <!-- /SECTION 4 — MENU WALL -->
+      <!-- /SECTION 4 - FEATURED DISHES -->
 
       <!-- =======================================================
            SECTION 5 — BUILD YOUR VIRUNDHU (Interactive Builder)
@@ -601,17 +646,28 @@
 
         <!-- Brand column -->
         <div class="footer-brand">
-          <div class="footer-logo">
-            <img src="assets/logo.png" alt="DK's Mappillai Mess logo">
+          <div class="footer-brand-main">
+            <div class="footer-logo">
+              <img src="assets/logo.png" alt="DK's Mappillai Mess logo">
+            </div>
+            <div class="footer-brand-copy">
+              <h2>DK's Mappillai Mess</h2>
+              <p>Veg &amp; Non-Veg South Indian mess flavour, festival energy and mappillai virundhu spirit.</p>
+            </div>
           </div>
-          <h2>DK's Mappillai Mess</h2>
-          <p>Veg &amp; Non-Veg South Indian mess flavour, festival energy and mappillai virundhu spirit.</p>
+          <div class="footer-contact-list" aria-label="Restaurant contact information">
+            <p><a href="tel:9841273193">+91 98412 73193</a></p>
+            <p><a href="https://wa.me/919841273193" target="_blank" rel="noopener">Message DK's Mappillai Mess</a></p>
+            <p><a href="mailto:dkmappilaimess@gmail.com" target="_blank" rel="noopener">dkmappilaimess@gmail.com</a></p>
+            <p>Chennai - Trichy Highway (GST Road), next to Indian Oil Petrol Bunk, Karunguzhi, Maduranthakam</p>
+          </div>
         </div>
 
-        <!-- Bottom row: phone + social icons -->
+        <!-- Contact details + social icons -->
         <div class="footer-bottom">
-          <p class="credit"><a href="tel:9841273193">Contact: 98412 73193</a></p>
-          <div class="footer-social-icons">
+          <p class="credit">&copy; DK's Mappillai Mess. All rights reserved.</p>
+          <div class="footer-social-stack">
+            <div class="footer-social-icons">
             <a href="https://www.instagram.com/dkmappillaimess/" target="_blank" rel="noopener" aria-label="Instagram">
               <svg class="social-svg-icon" viewBox="0 0 24 24">
                 <path fill="currentColor"
@@ -634,10 +690,10 @@
           </div>
         </div>
 
-        <!-- Copyright bar -->
+        <!-- Copyright bar
         <div class="footer-copyright">
-          Made by <strong>Cicada Web Solutions</strong>
-        </div>
+          <span>&copy; DK's Mappillai Mess. All rights reserved.</span>
+        </div> -->
 
       </div>
     </footer>

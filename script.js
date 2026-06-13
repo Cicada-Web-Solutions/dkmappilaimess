@@ -622,7 +622,7 @@ const hasGsap = typeof window.gsap !== "undefined";
 const hasScrollTrigger = typeof window.ScrollTrigger !== "undefined";
 
 // isHomePage guard: prevents homepage-only code crashing on menu.html
-const isHomePage = Boolean(document.getElementById("menu-groups") && document.querySelector(".time-card"));
+const isHomePage = Boolean(document.querySelector(".hero") && document.querySelector(".time-card"));
 
 /* =============================================================
    SECTION 6 — NAVBAR / HAMBURGER (Homepage only)
@@ -1059,8 +1059,10 @@ function runAnimations() {
 
 if (isHomePage) {
   renderSignaturePicks();
-  renderFilters();
-  renderMenu();
+  if (filterRow && menuGroups && searchInput) {
+    renderFilters();
+    renderMenu();
+  }
 }
 runAnimations();
 
