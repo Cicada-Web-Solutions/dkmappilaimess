@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>DK's Mappillai Mess | Veg &amp; Non-Veg South Indian Restaurant</title>
   <meta name="description" content="Playful official-style website for DK's Mappillai Mess serving breakfast, meals, biryani, parotta, grill, gravies, drinks and more.">
   <meta name="theme-color" content="#FFB000">
@@ -39,6 +39,7 @@
   </script>
  
 
+  <link rel="preload" href="assets/logo.png" as="image">
   <link rel="stylesheet" href="style-v1.1.css">
 </head>
 <body>
@@ -170,7 +171,7 @@
             <article class="time-card" style="--card-bg:#FFE08A;--tilt:-1.4deg;">
               <button type="button" aria-label="Show breakfast items"></button>
               <div class="time-illustration" aria-hidden="true">
-                <img src="assets/breakfast_craving.png" alt="Breakfast - Idli and Dosa">
+                <img src="assets/breakfast_craving.png" alt="Breakfast - Idli and Dosa" loading="lazy">
               </div>
               <h3>Breakfast</h3>
               <p>Soft idli, hot dosa counters, pongal comfort and parotta energy.</p>
@@ -181,7 +182,7 @@
             <article class="time-card" style="--card-bg:#CFF5A2;--tilt:1deg;">
               <button type="button" aria-label="Show lunch meals items"></button>
               <div class="time-illustration" aria-hidden="true">
-                <img src="assets/lunch_craving.png" alt="Lunch Meals - Banana Leaf Meal">
+                <img src="assets/lunch_craving.png" alt="Lunch Meals - Banana Leaf Meal" loading="lazy">
               </div>
               <h3>Lunch Meals</h3>
               <p>Banana leaf spread with veg, Chettinad and full special meals.</p>
@@ -192,7 +193,7 @@
             <article class="time-card" style="--card-bg:#FFC7C7;--tilt:-0.7deg;">
               <button type="button" aria-label="Show dinner feast items"></button>
               <div class="time-illustration" aria-hidden="true">
-                <img src="assets/dinner_craving.png" alt="Dinner Feast - Grill Tandoori Chicken">
+                <img src="assets/dinner_craving.png" alt="Dinner Feast - Grill Tandoori Chicken" loading="lazy">
               </div>
               <h3>Dinner Feast</h3>
               <p>Starters, grill smoke, biryani pots, gravies and breads.</p>
@@ -203,7 +204,7 @@
             <article class="time-card" style="--card-bg:#BBDDFB;--tilt:1.5deg;">
               <button type="button" aria-label="Show drinks and shakes items"></button>
               <div class="time-illustration" aria-hidden="true">
-                <img src="assets/drinks_craving.png" alt="Drinks & Shakes - Rose Milk and Mojito">
+                <img src="assets/drinks_craving.png" alt="Drinks & Shakes - Rose Milk and Mojito" loading="lazy">
               </div>
               <h3>Drinks &amp; Shakes</h3>
               <p>Tea, coffee, juices, mojitos and chilled shake counter joy.</p>
@@ -246,6 +247,15 @@
             <p class="menu-note">Prices may vary. Please call to confirm.</p>
           </div>
           <div class="menu-groups" id="menu-groups" aria-live="polite"></div>
+
+          <!-- View Full Menu CTA -->
+          <div class="menu-preview-footer">
+            <p class="menu-preview-note">Showing 3 of 18 categories &mdash; Meals, Biryani &amp; Chicken Starters</p>
+            <a class="view-more-btn" href="menu.html" id="view-full-menu-btn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v15a2 2 0 0 1-2 2H6a3 3 0 0 1-3-3V4a1 1 0 0 1 1-1Zm2 14a1 1 0 0 0 0 2h13V5H5v12.17c.31-.11.65-.17 1-.17Zm2-9h8v2H8V8Zm0 4h8v2H8v-2Z"/></svg>
+              View Full Menu (18 Categories) &rarr;
+            </a>
+          </div>
         </div>
       </section>
 
@@ -402,7 +412,7 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.1 4.9A9.84 9.84 0 0 0 12.07 2a9.94 9.94 0 0 0-8.6 14.91L2 22l5.22-1.37A9.91 9.91 0 0 0 12.07 22h.01A9.93 9.93 0 0 0 22 12.06a9.86 9.86 0 0 0-2.9-7.16Zm-7.02 15.42h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.24 8.24 0 1 1 6.97 3.85Z"/></svg>
         WhatsApp
       </a>
-      <a href="#menu" aria-label="Open menu section">
+      <a href="menu.html" aria-label="View full menu page">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v15a2 2 0 0 1-2 2H6a3 3 0 0 1-3-3V4a1 1 0 0 1 1-1Zm2 14a1 1 0 0 0 0 2h13V5H5v12.17c.31-.11.65-.17 1-.17Zm2-9h8v2H8V8Zm0 4h8v2H8v-2Z"/></svg>
         Menu
       </a>
