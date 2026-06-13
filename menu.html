@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Full Menu | DK's Mappillai Mess — Veg &amp; Non-Veg South Indian</title>
+  <meta name="description" content="View the complete menu of DK's Mappillai Mess — Breakfast, Dosa, Parotta, Biryani, Grill, Gravies, Meals, Drinks and more.">
+  <meta name="theme-color" content="#FFB000">
+  <meta property="og:title" content="Full Menu | DK's Mappillai Mess">
+  <meta property="og:description" content="All 18 categories — Breakfast, Biryani, Meals, Grill, Gravies, Drinks and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Bungee&family=Lilita+One&family=Noto+Sans+Tamil:wght@400;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/logo.png" as="image">
+  <!-- Main Stylesheet (shared with index.html) -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ============================================================
+       MENU PAGE — Page-specific styles (only apply to menu.html)
+       These augment the shared style.css without duplicating it.
+       Sections:
+         a) Page Hero (header bar with title + stats)
+         b) Sidebar TOC (sticky category jump links, desktop only)
+         c) Full Menu Controls (search + filter, sticky)
+         d) Category Accordion Groups (.full-menu-group)
+         e) Menu Items (.full-menu-item)
+         f) Responsive overrides (tablet + mobile)
+       ============================================================ */
+
+    /* ── a) PAGE HERO ────────────────────────────────────────── */
+    .menu-page-hero {
+      background:
+        linear-gradient(135deg, rgba(22, 139, 58, 0.12), rgba(255, 255, 255, 0.22)),
+        radial-gradient(circle at 16px 16px, rgba(21, 21, 21, 0.1) 2px, transparent 2.8px) 0 0 / 32px 32px;
+      border-bottom: var(--outline);
+      padding: 3rem 0 2.5rem;
+    }
+
+    .menu-page-hero-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.1rem;
+      border: var(--outline);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--small-shadow);
+      font-weight: 900;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .back-btn:hover,
+    .back-btn:focus-visible {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow);
+    }
+
+    .back-btn svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .menu-page-title {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .menu-page-title h1 {
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      text-shadow: 4px 4px 0 var(--yellow), 7px 7px 0 var(--ink);
+      line-height: 0.95;
+    }
+
+    .menu-stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .menu-stat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--white);
+      font-size: 0.82rem;
+      font-weight: 900;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .menu-stat-chip.veg { background: #cff5a2; }
+    .menu-stat-chip.nonveg { background: #ffc7c7; }
+
+    /* ── b) SIDEBAR TOC ──────────────────────────────────────── */
+    /* Sticky category jump links visible on desktop (>900px) */
+    .menu-page-layout {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 2rem;
+      padding: 2.5rem 0 5rem;
+      align-items: start;
+    }
+
+    /* ── Sidebar TOC ── */
+    .menu-toc {
+      position: sticky;
+      top: calc(var(--navbar-h) + 12px);
+      max-height: calc(100vh - var(--navbar-h) - 3rem);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--yellow) transparent;
+      display: grid;
+      gap: 0.4rem;
+      padding: 1rem;
+      border: var(--outline);
+      border-radius: var(--radius);
+      background: rgba(255, 242, 198, 0.94);
+      box-shadow: var(--small-shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .menu-toc-title {
+      font-family: "Lilita One", sans-serif;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      color: var(--purple);
+      letter-spacing: 0.5px;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px dashed rgba(21, 21, 21, 0.25);
+      margin-bottom: 0.2rem;
+    }
+
+    .menu-toc a {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: var(--radius);
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: background 150ms ease, transform 150ms ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .menu-toc a:hover,
+    .menu-toc a.is-active {
+      background: var(--purple);
+      color: var(--white);
+      transform: translateX(3px);
+    }
+
+    .menu-toc-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--yellow);
+      border: 1.5px solid var(--ink);
+      flex: 0 0 auto;
+    }
+
+    .menu-toc a.is-active .menu-toc-dot {
+      background: var(--white);
+    }
+
+    /* ── c) FULL MENU CONTROLS ───────────────────────────────── */
+    /* Sticky search + filter row at top of menu content area */
+    .menu-full-content {
+      display: grid;
+      gap: 0;
+    }
+
+    .full-menu-controls {
+      position: sticky;
+      top: calc(var(--navbar-h) + 12px);
+      z-index: 20;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border: var(--outline);
+      border-radius: var(--radius);
+      background: rgba(255, 242, 198, 0.94);
+      box-shadow: var(--small-shadow);
+      backdrop-filter: blur(14px);
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .full-filter-row {
+      display: flex;
+      gap: 0.55rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .full-filter-row::-webkit-scrollbar { display: none; }
+
+    .full-filter-btn {
+      flex-shrink: 0;
+      padding: 0.45rem 1rem;
+      border: var(--outline);
+      border-radius: 999px;
+      background: var(--white);
+      font-weight: 900;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease, transform 150ms ease;
+      box-shadow: var(--small-shadow);
+      font-family: inherit;
+    }
+
+    .full-filter-btn:hover { transform: translate(-1px, -1px); }
+    .full-filter-btn.is-active {
+      background: var(--purple);
+      color: var(--white);
+    }
+
+    /* ── d) CATEGORY ACCORDION GROUPS ─────────────────────────── */
+    .full-menu-group {
+      border: var(--outline);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--small-shadow);
+      margin-bottom: 1.2rem;
+      overflow: hidden;
+      scroll-margin-top: calc(var(--navbar-h) + 160px);
+    }
+
+    .full-menu-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      transition: background 150ms ease;
+    }
+
+    .full-menu-group-header:hover {
+      background: var(--cream);
+    }
+
+    .full-menu-group-header h2 {
+      font-size: 1.34rem;
+      font-family: "Lilita One", "Baloo 2", sans-serif;
+      color: var(--purple);
+      text-shadow: none;
+      text-transform: none;
+      font-weight: normal;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .full-menu-group-header .accordion-icon {
+      width: 1.4rem;
+      height: 1.4rem;
+      flex: 0 0 auto;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--yellow);
+      display: grid;
+      place-items: center;
+      transition: transform 220ms ease, background 180ms ease;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .full-menu-group-header .accordion-icon svg {
+      width: 0.75rem;
+      height: 0.75rem;
+      transition: transform 220ms ease;
+    }
+
+    .full-menu-group.is-open .accordion-icon {
+      background: var(--purple);
+      color: var(--white);
+    }
+
+    .full-menu-group.is-open .accordion-icon svg {
+      transform: rotate(180deg);
+    }
+
+    .full-menu-group-body {
+      display: none;
+      padding: 0 1rem 1rem;
+      border-top: 2px dashed rgba(21, 21, 21, 0.18);
+      animation: accordionOpen 200ms ease;
+    }
+
+    .full-menu-group.is-open .full-menu-group-body {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    @keyframes accordionOpen {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .full-menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      min-height: 3.2rem;
+      padding: 0.55rem 0.75rem;
+      border: 2px solid rgba(21, 21, 21, 0.14);
+      border-radius: var(--radius);
+      background: #fffaf0;
+      transition: border-color 150ms ease, background 150ms ease;
+    }
+
+    .full-menu-item:hover {
+      background: #fff5d6;
+      border-color: var(--yellow);
+    }
+
+    .full-menu-item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .full-menu-item-name {
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+
+    /* ── e) EMPTY STATE ──────────────────────────────────────── */
+    .full-empty-menu {
+      padding: 3rem;
+      border: var(--outline);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--small-shadow);
+      font-weight: 900;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    /* ── f) RESPONSIVE OVERRIDES ─────────────────────────────── */
+    @media (max-width: 900px) {
+      .menu-page-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-toc {
+        display: none; /* hidden on mobile — use category scrolling instead */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-page-hero {
+        padding: 1.8rem 0 1.5rem;
+      }
+
+      .menu-page-title h1 {
+        font-size: clamp(1.8rem, 8vw, 2.8rem);
+      }
+
+      .menu-page-layout {
+        padding: 1.5rem 0 6rem;
+      }
+
+      .full-menu-group {
+        margin-bottom: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <!-- ======================================================
+         NAVBAR — Same structure as index.html navbar
+         All nav links point back to index.html#anchor
+         ====================================================== -->
+    <nav class="navbar" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html#home" aria-label="DK's Mappillai Mess home">
+          <span class="brand-mark">
+            <img src="assets/logo.png" alt="DK's Mappillai Mess logo">
+          </span>
+          <span class="brand-text">
+            <span class="brand-name">DK's Mappillai Mess</span>
+            <span class="brand-sub">Veg &amp; Non-Veg Virundhu</span>
+          </span>
+        </a>
+        <div class="nav-links" id="nav-links">
+          <a href="index.html#home">Home</a>
+          <a href="index.html#menu" class="active-nav">Menu</a>
+          <a href="index.html#signatures">Specials</a>
+          <a href="index.html#reviews">Reviews</a>
+          <a href="index.html#visit">Visit</a>
+          <a href="index.html#footer">Contact Us</a>
+        </div>
+        <div class="nav-actions">
+          <button class="hamburger" id="hamburger" type="button" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">
+            <span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ====================================================
+           PAGE HERO — Title, back button, menu stats bar
+           ==================================================== -->
+      <div class="menu-page-hero">
+        <div class="container">
+          <div class="menu-page-hero-inner">
+            <div class="menu-page-title">
+              <a class="back-btn" href="index.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Back to Home
+              </a>
+              <h1 id="menu-page-title">Mappillai Full Menu</h1>
+              <p class="lead">Every dish, every category — all 18 of them. Search, filter, and feast your eyes.</p>
+            </div>
+            <div class="menu-stats-bar" id="menu-stats-bar" aria-label="Menu statistics">
+              <span class="menu-stat-chip">🍽️ <span id="total-items-count">—</span> Items</span>
+              <span class="menu-stat-chip">📂 18 Categories</span>
+              <span class="menu-stat-chip veg">🟢 Veg</span>
+              <span class="menu-stat-chip nonveg">🔴 Non-Veg</span>
+              <span class="menu-stat-chip">⭐ Best Sellers Marked</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================
+           MENU PAGE LAYOUT — Sidebar TOC + Full Menu Content
+           ==================================================== -->
+      <div class="container">
+        <div class="menu-page-layout">
+
+          <!-- ================================================
+               SIDEBAR TOC — Desktop only sticky jump links
+               Populated by menu-page.js into #menu-toc
+               ================================================ -->
+          <aside class="menu-toc" id="menu-toc" aria-label="Jump to category">
+            <div class="menu-toc-title">Jump to Category</div>
+            <!-- Populated by JS -->
+          </aside>
+
+          <!-- ================================================
+               FULL MENU CONTENT — Search + filters + groups
+               All menu groups injected by menu-page.js
+               ================================================ -->
+          <div class="menu-full-content">
+
+            <!-- Sticky controls -->
+            <div class="full-menu-controls" aria-label="Menu search and filters">
+              <label class="search-wrap" for="full-menu-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m21 19.6-5.2-5.2a7.4 7.4 0 1 0-1.4 1.4l5.2 5.2L21 19.6ZM5 10a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z"/></svg>
+                <input id="full-menu-search" type="search" placeholder="Search biryani, dosa, mojito..." autocomplete="off">
+              </label>
+              <div class="full-filter-row" id="full-filter-row" role="list" aria-label="Filter by type"></div>
+              <p class="menu-note">Prices shown in ₹. Prices may vary. Please call to confirm.</p>
+            </div>
+
+            <!-- Menu groups populated by JS -->
+            <div id="full-menu-groups" aria-live="polite"></div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer" id="footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="assets/logo.png" alt="DK's Mappillai Mess logo">
+          </div>
+          <h2>DK's Mappillai Mess</h2>
+          <p>Veg &amp; Non-Veg South Indian mess flavour, festival energy and mappillai virundhu spirit.</p>
+        </div>
+        <div class="footer-bottom">
+          <p class="credit"><a href="tel:9841273193">Contact: 98412 73193</a></p>
+          <div class="footer-social-icons">
+            <a href="https://www.instagram.com/dkmappillaimess/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg class="social-svg-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M7.8 2h8.4A5.81 5.81 0 0 1 22 7.8v8.4a5.81 5.81 0 0 1-5.8 5.8H7.8A5.81 5.81 0 0 1 2 16.2V7.8A5.81 5.81 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm9.55 1.72a1.18 1.18 0 1 1 0 2.36 1.18 1.18 0 0 1 0-2.36ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/p/DKs-Mappillai-Mess-61558490927932/" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg class="social-svg-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.25-1.5 1.55-1.5h1.65V4.62A22 22 0 0 0 14.3 4c-2.38 0-4 1.45-4 4.12v2.3H7.6V14h2.7v8h3.2Z"/></svg>
+            </a>
+            <a href="https://wa.me/919841273193" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg class="social-svg-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19.1 4.9A9.84 9.84 0 0 0 12.07 2a9.94 9.94 0 0 0-8.6 14.91L2 22l5.22-1.37A9.91 9.91 0 0 0 12.07 22h.01A9.93 9.93 0 0 0 22 12.06a9.86 9.86 0 0 0-2.9-7.16Zm-7.02 15.42h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.24 8.24 0 1 1 6.97 3.85Zm4.52-6.16c-.25-.12-1.47-.73-1.7-.81-.23-.09-.4-.13-.57.12-.17.25-.65.81-.8.98-.15.17-.3.19-.55.06-.25-.12-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.39-1.74-.15-.25-.02-.39.11-.51.11-.11.25-.3.37-.44.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.57-1.37-.78-1.88-.2-.49-.41-.42-.57-.43h-.49c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Copyright bar -->
+        <div class="footer-copyright">
+          Made by <strong>Cicada Web Solutions</strong>
+        </div>
+
+      </div>
+    </footer>
+
+    <!-- ======================================================
+         MOBILE ACTION BAR — Fixed bottom quick-action strip
+         ====================================================== -->
+    <div class="mobile-action-bar" aria-label="Quick actions">
+      <a href="tel:9841273193" aria-label="Call DK's Mappillai Mess">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.3-.3.73-.4 1.12-.27 1.23.4 2.55.62 3.91.62.62 0 1.12.5 1.12 1.12v3.49c0 .62-.5 1.12-1.12 1.12C10.58 21.26 2.74 13.42 2.74 3.56c0-.62.5-1.12 1.12-1.12h3.5c.62 0 1.12.5 1.12 1.12 0 1.36.21 2.68.62 3.91.12.39.03.82-.28 1.12l-2.2 2.2Z"/></svg>
+        Call
+      </a>
+      <a href="https://wa.me/919841273193" target="_blank" rel="noopener" aria-label="Open WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.1 4.9A9.84 9.84 0 0 0 12.07 2a9.94 9.94 0 0 0-8.6 14.91L2 22l5.22-1.37A9.91 9.91 0 0 0 12.07 22h.01A9.93 9.93 0 0 0 22 12.06a9.86 9.86 0 0 0-2.9-7.16Zm-7.02 15.42h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.24 8.24 0 1 1 6.97 3.85Z"/></svg>
+        WhatsApp
+      </a>
+      <a href="index.html" aria-label="Back to home">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        Home
+      </a>
+      <a href="https://www.google.com/maps/search/?api=1&query=DK's+Mappillai+Mess+Karunguzhi" target="_blank" rel="noopener" aria-label="Get Directions on Google Maps">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+        Directions
+      </a>
+    </div>
+  </div>
+
+  <!-- GSAP (needed for scroll effects via script.js isHomePage guard) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Shared site script (homepage guards via isHomePage flag) -->
+  <script src="script.js"></script>
+  <!-- Menu page specific logic (accordion, TOC, search, filters) -->
+  <script src="menu-page.js"></script>
+</body>
+</html>

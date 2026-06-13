@@ -1,3 +1,34 @@
+/* =============================================================
+   style.css  |  DK's Mappillai Mess - Main Stylesheet
+   Shared by: index.html (homepage) + menu.html (full menu page)
+   Design: Comic/Neobrutalist - high contrast, thick borders,
+           hard shadows, vibrant yellows, reds and purples.
+   ---------------------------------------------------------------
+   TABLE OF CONTENTS:
+     01. Design Tokens     — CSS custom properties / variables
+     02. Reset & Base      — box-sizing, html, body, links
+     03. Global Utilities  — containers, buttons, badges, eyebrow
+     04. Navbar            — top nav bar + hamburger (mobile)
+     05. Contact Us Btn    — red rectangular navbar CTA
+     06. Back to Top       — floating fixed yellow button
+     07. Hero Section      — landing area with banana leaf visual
+     08. Craving Clock     — time-of-day expandable cards
+     09. Signature Picks   — marquee carousel sticker board
+     10. Menu Wall         — homepage preview + full menu page
+     11. Build Your Virundhu — interactive banana leaf builder
+     12. Social Section    — Instagram + Facebook cards
+     13. Reviews Section   — customer testimonial cards
+     14. Visit / Contact   — address, hours, Google Maps
+     15. Footer            — brand, phone, social icons
+     16. Mobile Action Bar — fixed bottom quick-action strip
+     17. Responsive        — tablet (max 960px) + mobile (768px)
+   ============================================================= */
+
+/* =============================================================
+   01. DESIGN TOKENS
+   All brand colours, shadow shorthands, radius and spacing.
+   To retheme the entire site, update ONLY these variables.
+   ============================================================= */
 :root {
   --yellow: #ffb000;
   --orange: #f77f00;
@@ -13,8 +44,13 @@
   --outline: 3px solid var(--ink);
   --radius: 8px;
   --section: clamp(4rem, 8vw, 7.5rem);
+  /* Navbar height — updated via JS for sticky offsets */
+  --navbar-h: 82px;
 }
 
+/* =============================================================
+   02. RESET & BASE STYLES
+   ============================================================= */
 * {
   box-sizing: border-box;
 }
@@ -421,6 +457,155 @@ p {
   transform: scaleX(1);
 }
 
+/* ── Contact Us — red rectangular CTA button in navbar ── */
+.nav-contact-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.52rem 1.1rem !important;
+  margin-left: 0.35rem;
+  background: var(--red) !important;
+  color: var(--white) !important;
+  border: var(--outline) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: 4px 4px 0 var(--ink);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition:
+    transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 160ms ease,
+    background 160ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-contact-btn::after {
+  /* underline override — remove the red underline bar */
+  display: none !important;
+}
+
+.nav-contact-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: background 280ms ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.nav-contact-btn:hover,
+.nav-contact-btn:focus-visible {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+  background: #b51b1b !important;
+}
+
+.nav-contact-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* Click ripple flash */
+.nav-contact-btn.is-clicked::before {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.nav-contact-btn svg {
+  flex: 0 0 auto;
+  opacity: 0.9;
+}
+
+/* ── Back to Top — floating fixed button ── */
+.back-to-top {
+  position: fixed;
+  bottom: 2.2rem;
+  right: 1.8rem;
+  z-index: 9000;
+  width: 3.4rem;
+  height: 3.4rem;
+  display: grid;
+  place-items: center;
+  /* Yellow bg — always visible against dark footer AND light sections */
+  background: var(--yellow);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  /* White glow + ink offset so it stands out on dark AND light backgrounds */
+  box-shadow: 6px 6px 0 var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  /* Hidden by default — shown via JS scroll listener */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1.2rem);
+  transition:
+    opacity 260ms ease,
+    transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+  overflow: hidden;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: var(--ink);
+  color: var(--yellow);
+  box-shadow: 8px 8px 0 var(--yellow);
+  outline: none;
+}
+
+.back-to-top:active {
+  transform: translateY(2px) scale(0.92);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* Ripple pseudo-element on click */
+.back-to-top::before {
+  content: "";
+  position: absolute;
+  inset: 50% 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0ms, height 0ms, opacity 400ms ease;
+  opacity: 0;
+}
+
+.back-to-top.ripple::before {
+  width: 120%;
+  height: 120%;
+  opacity: 0;
+  transition: width 420ms ease, height 420ms ease, opacity 420ms ease;
+}
+
+.back-to-top svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Push the button up on mobile so it sits above the mobile action bar */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: calc(4.4rem + env(safe-area-inset-bottom, 0px));
+    right: 1rem;
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -471,7 +656,8 @@ p {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(350px, 0.98fr);
+  /* Use minmax(0,...) on both sides to prevent overflow on narrow phones */
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
   align-items: center;
   gap: clamp(2rem, 4vw, 5rem);
   position: relative;
@@ -516,12 +702,12 @@ p {
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  background: var(--white);
-  border: var(--outline);
-  border-radius: 50%;
-  box-shadow: var(--shadow);
+  background: transparent;
+  border: none;
+  box-shadow: none;
   z-index: 5;
   transform: rotate(8deg);
+  filter: drop-shadow(5px 5px 0 var(--ink));
 }
 
 .hero-logo-badge img {
@@ -662,87 +848,65 @@ p {
   --tilt: -22deg;
 }
 
-.hero-mascot {
-  position: absolute;
-  left: 0.2rem;
-  bottom: 3.8rem;
-  width: clamp(10rem, 20vw, 14rem);
-  padding: 0.75rem 0.9rem 0.55rem;
-  border: var(--outline);
-  border-radius: var(--radius);
-  background: var(--white);
-  box-shadow: var(--shadow);
-  transform: rotate(-7deg);
-  z-index: 6;
-}
-
-.elephant-svg {
-  width: 100%;
-}
-
-.mascot-label {
-  display: block;
-  margin-top: 0.25rem;
-  font-family: "Lilita One", "Baloo 2", sans-serif;
-  font-size: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--purple);
-}
-
 .float-food {
   position: absolute;
   z-index: 4;
   display: grid;
   place-items: center;
-  border: var(--outline);
-  box-shadow: var(--small-shadow);
-  background: var(--white);
-  border-radius: var(--radius);
+  background: transparent;
+  border: none;
+  box-shadow: none;
   transform: rotate(var(--rotate));
+  /* will-change only when GSAP is active — toggled via .is-animating class */
+  filter: drop-shadow(4px 4px 0 var(--ink));
+}
+
+.float-food.is-animating,
+.floaty.is-animating,
+.float-slow.is-animating {
   will-change: transform;
 }
 
 .float-food svg {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .float-dosa {
-  width: 8rem;
-  height: 5.3rem;
+  width: clamp(6.5rem, 12vw, 9rem);
+  aspect-ratio: 140 / 92;
   left: 2%;
   top: 10%;
   --rotate: -14deg;
 }
 
 .float-idli {
-  width: 6rem;
-  height: 5.4rem;
+  width: clamp(5.2rem, 9.5vw, 7.2rem);
+  aspect-ratio: 100 / 92;
   right: 6%;
   top: 34%;
   --rotate: 9deg;
 }
 
 .float-parotta {
-  width: 6.5rem;
-  height: 6.5rem;
+  width: clamp(5.5rem, 10vw, 7.5rem);
+  aspect-ratio: 1;
   left: 11%;
   bottom: 12%;
   --rotate: 12deg;
 }
 
 .float-pot {
-  width: 6.9rem;
-  height: 6rem;
+  width: clamp(6rem, 11vw, 8rem);
+  aspect-ratio: 110 / 95;
   right: 4%;
   bottom: 12%;
   --rotate: -12deg;
 }
 
 .float-tea {
-  width: 4.6rem;
-  height: 6.3rem;
+  width: clamp(4rem, 7vw, 5.5rem);
+  aspect-ratio: 78 / 110;
   right: 32%;
   top: 2%;
   --rotate: 7deg;
@@ -752,7 +916,7 @@ p {
   position: absolute;
   z-index: 3;
   pointer-events: none;
-  will-change: transform;
+  /* will-change promoted via .is-animating only */
 }
 
 .chilli {
@@ -916,9 +1080,11 @@ p {
   overflow: hidden;
 }
 
-.time-illustration svg {
-  width: 86%;
-  height: 86%;
+.time-illustration svg,
+.time-illustration img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
 }
 
 .time-items {
@@ -972,7 +1138,7 @@ p {
   display: flex;
   width: max-content;
   gap: 1rem;
-  will-change: transform;
+  /* will-change promoted only when animation runs */
 }
 
 .signature-card {
@@ -1014,11 +1180,16 @@ p {
   border-radius: 50%;
   background: var(--sticker);
   box-shadow: 3px 3px 0 var(--ink);
+  overflow: hidden;
 }
 
-.sticker-icon svg {
-  width: 76%;
-  height: 76%;
+.sticker-icon svg,
+.sticker-icon img,
+.sticker-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .sticker-pin {
@@ -1055,7 +1226,8 @@ p {
   gap: 1rem;
   margin-bottom: 1.6rem;
   position: sticky;
-  top: 94px;
+  /* Use CSS variable so JS can set it accurately per viewport */
+  top: calc(var(--navbar-h) + 12px);
   z-index: 20;
   padding: 1rem;
   border: var(--outline);
@@ -1091,12 +1263,12 @@ p {
   font-weight: 800;
 }
 
-.filter-row {
+.filter-tags-wrap {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.55rem;
-  overflow-x: auto;
-  padding: 0 0 0.45rem;
-  scrollbar-width: thin;
+  padding: 0.2rem 0;
 }
 
 .filter-btn {
@@ -1127,10 +1299,9 @@ p {
 }
 
 .menu-groups {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  align-items: start;
+  display: block;
+  columns: 3 320px;
+  column-gap: 1.2rem;
 }
 
 .menu-group {
@@ -1142,6 +1313,7 @@ p {
   background: var(--white);
   box-shadow: var(--small-shadow);
   break-inside: avoid;
+  margin-bottom: 1.2rem;
 }
 
 .menu-group h3 {
@@ -1171,12 +1343,12 @@ p {
 }
 
 .menu-item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  display: flex;
   align-items: center;
-  gap: 0.55rem;
+  justify-content: space-between;
+  gap: 0.6rem;
   min-height: 3.3rem;
-  padding: 0.55rem;
+  padding: 0.55rem 0.75rem;
   border: 2px solid rgba(21, 21, 21, 0.18);
   border-radius: var(--radius);
   background: #fffaf0;
@@ -1230,6 +1402,55 @@ p {
   text-align: center;
 }
 
+/* ── Menu preview footer (homepage) ── */
+.menu-preview-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 0 0;
+  text-align: center;
+}
+
+.menu-preview-note {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--purple);
+  opacity: 0.75;
+}
+
+.view-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.8rem;
+  font-size: 1.05rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: var(--yellow);
+  border: var(--outline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.view-more-btn:hover,
+.view-more-btn:focus-visible {
+  transform: translate(-3px, -3px) rotate(-1deg);
+  box-shadow: 11px 11px 0 var(--ink);
+}
+
+.view-more-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.view-more-btn svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex: 0 0 auto;
+}
+
 .builder {
   background:
     linear-gradient(135deg, rgba(214, 40, 40, 0.11), rgba(60, 47, 114, 0.14)),
@@ -1277,6 +1498,7 @@ p {
   );
   box-shadow: 13px 15px 0 var(--ink);
   overflow: hidden;
+  container-type: inline-size;
 }
 
 .builder-leaf::before {
@@ -1304,10 +1526,25 @@ p {
 .builder-food {
   position: absolute;
   z-index: 2;
-  border: var(--outline);
-  box-shadow: 4px 4px 0 var(--ink);
+  /* No blob border/bg — SVG illustration provides its own visual */
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  /* Drop shadow to match the site's neobrutalist style */
+  filter: drop-shadow(3px 3px 0 rgba(21, 21, 21, 0.7));
   transform: translate(-50%, -50%) scale(0);
+  transform-origin: center center;
   pointer-events: none;
+  overflow: visible;
+  /* Ensure smooth SVG scaling */
+  image-rendering: crisp-edges;
+}
+
+.builder-food svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
 .builder-controls {
@@ -1458,7 +1695,8 @@ p {
 
 .visit-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(320px, 1fr);
+  /* Prevent the map card from forcing overflow on narrow viewports */
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
   gap: clamp(1rem, 4vw, 3rem);
   align-items: stretch;
 }
@@ -1500,10 +1738,17 @@ p {
   min-height: 24rem;
   position: relative;
   overflow: hidden;
-  background:
-    linear-gradient(90deg, rgba(21, 21, 21, 0.08) 0 3px, transparent 3px 44px),
-    linear-gradient(0deg, rgba(21, 21, 21, 0.08) 0 3px, transparent 3px 44px),
-    #f8f0d2;
+  background: var(--white);
+  padding: 0;
+  display: flex;
+}
+
+.map-card iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  flex-grow: 1;
 }
 
 .map-route {
@@ -1571,7 +1816,7 @@ p {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: minmax(250px, 1fr) auto auto;
+  grid-template-columns: 1fr;
   gap: clamp(1.4rem, 5vw, 4rem);
   align-items: start;
 }
@@ -1579,7 +1824,7 @@ p {
 .footer-brand {
   display: grid;
   gap: 1rem;
-  max-width: 390px;
+  max-width: 600px;
 }
 
 .footer-logo {
@@ -1594,43 +1839,127 @@ p {
 }
 
 .footer-brand h2 {
-  font-size: clamp(1.7rem, 4vw, 3rem);
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
   color: var(--white);
+  white-space: nowrap;
   text-shadow:
     4px 4px 0 var(--red),
     7px 7px 0 var(--purple);
 }
 
-.footer-links,
-.footer-socials {
-  display: grid;
-  gap: 0.7rem;
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  font-family: "Lilita One", "Baloo 2", sans-serif;
+  font-size: 1.35rem;
+  color: var(--white);
 }
 
-.footer-links h3,
-.footer-socials h3 {
+.footer-contact svg {
+  width: 1.35rem;
+  height: 1.35rem;
   color: var(--yellow);
-  font-size: 1.25rem;
 }
 
-.footer-links a,
-.footer-socials a,
-.credit {
+.footer-contact a {
   font-weight: 800;
+  transition: color 180ms ease;
 }
 
-.footer-links a:hover,
-.footer-socials a:hover,
-.footer-links a:focus-visible,
-.footer-socials a:focus-visible {
+.footer-contact a:hover {
   color: var(--yellow);
 }
 
-.credit {
+.footer-social-icons {
+  display: flex;
+  gap: 0.95rem;
+  justify-content: flex-end;
+}
+
+.footer-social-icons a {
+  width: 3.2rem;
+  height: 3.2rem;
+  display: grid;
+  place-items: center;
+  border: var(--outline);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--small-shadow);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.footer-social-icons svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.footer-social-icons a:hover {
+  transform: translate(-2px, -2px) rotate(-3deg);
+  box-shadow: 6px 6px 0 var(--ink);
+  color: var(--white);
+}
+
+.footer-social-icons a[aria-label="Instagram"]:hover {
+  background: #f7a1cf;
+}
+
+.footer-social-icons a[aria-label="Facebook"]:hover {
+  background: #9ec8ff;
+}
+
+.footer-social-icons a[aria-label="WhatsApp"]:hover {
+  background: #dbffd9;
+}
+
+.footer-bottom {
   grid-column: 1 / -1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
   padding-top: 1.2rem;
   border-top: 2px dashed rgba(255, 255, 255, 0.24);
+}
+
+.credit {
+  font-weight: 800;
   color: var(--cream);
+  margin: 0;
+}
+
+.credit a {
+  transition: color 180ms ease;
+}
+
+.credit a:hover {
+  color: var(--yellow);
+}
+
+.footer-copyright {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 1rem 0 0;
+  margin-top: 0.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 242, 198, 0.5);
+  letter-spacing: 0.03em;
+}
+
+.footer-copyright strong {
+  color: var(--yellow);
+  font-weight: 900;
 }
 
 .mobile-action-bar {
@@ -1638,11 +1967,13 @@ p {
   position: fixed;
   left: 0.7rem;
   right: 0.7rem;
-  bottom: 0.7rem;
+  /* iOS safe area inset for home bar */
+  bottom: max(0.7rem, env(safe-area-inset-bottom));
   z-index: 70;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.45rem;
   padding: 0.5rem;
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
   border: var(--outline);
   border-radius: var(--radius);
   background: var(--cream);
@@ -1660,6 +1991,12 @@ p {
   font-size: 0.66rem;
   font-weight: 900;
   text-transform: uppercase;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.mobile-action-bar a:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 
 .mobile-action-bar svg {
@@ -1780,7 +2117,9 @@ p {
   }
 
   .menu-groups {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: block;
+    columns: 2;
+    column-gap: 1rem;
   }
 }
 
@@ -1812,11 +2151,7 @@ p {
   .hamburger {
     display: inline-flex !important;
     flex: 0 0 2.85rem;
-    position: fixed;
-    top: 0.72rem;
-    right: auto;
-    left: calc(min(100vw, 390px) - 3.6rem);
-    z-index: 90;
+    height: 2.85rem;
   }
 
   .brand-mark {
@@ -1885,48 +2220,44 @@ p {
     right: 0.3rem;
     width: 7rem;
   }
-
-  .hero-mascot {
-    left: 0;
-    bottom: 0.8rem;
-    width: 9.3rem;
-  }
-
   .float-dosa {
     width: 5.9rem;
-    height: 4rem;
+    height: auto;
     left: 0;
   }
 
   .float-idli {
     width: 4.8rem;
-    height: 4.35rem;
+    height: auto;
     right: 0;
     top: 39%;
   }
 
   .float-parotta {
     width: 4.9rem;
-    height: 4.9rem;
+    height: auto;
     left: 12%;
   }
 
   .float-pot {
     width: 5.3rem;
-    height: 4.7rem;
+    height: auto;
   }
 
   .float-tea {
     width: 3.6rem;
-    height: 5rem;
+    height: auto;
     right: 39%;
   }
-
   .time-grid,
   .social-grid,
-  .menu-groups,
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+
+  .menu-groups {
+    display: block;
+    columns: 1;
   }
 
   .time-card {
@@ -1935,20 +2266,35 @@ p {
   }
 
   .menu-controls {
-    top: 76px;
+    /* top is now driven by --navbar-h CSS variable updated by JS */
     padding: 0.75rem;
   }
 
-  .menu-item {
-    grid-template-columns: minmax(0, 1fr) auto;
+  .filter-tags-wrap {
+    /* Horizontal scroll on mobile to prevent tag pile-up */
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0.2rem 0;
+    scrollbar-width: none; /* Firefox */
   }
 
-  .price {
-    grid-column: 2;
+  .filter-tags-wrap::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .filter-btn {
+    flex-shrink: 0; /* Prevent filter buttons from shrinking */
+    padding: 0.55rem 0.85rem;
+    font-size: 0.82rem;
+    min-height: 2.75rem;
   }
 
   .builder-buttons {
-    grid-template-columns: 1fr;
+    /* Keep 2 columns on mobile — 1 col is too tall */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .builder-stage {
@@ -1963,16 +2309,29 @@ p {
     gap: 1.4rem;
   }
 
-  .credit {
+  .footer-brand h2 {
+    white-space: normal;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
     padding-bottom: 1.5rem;
+  }
+
+  .footer-social-icons {
+    justify-content: flex-start;
+    margin-top: 0;
   }
 
   .mobile-action-bar {
     display: grid;
-    left: 0.7rem;
+    left: 50%;
     right: auto;
-    width: min(calc(100vw - 1.4rem), 370px);
-    max-width: min(calc(100vw - 1.4rem), 370px);
+    transform: translateX(-50%);
+    width: min(calc(100vw - 1.4rem), 480px);
+    max-width: min(calc(100vw - 1.4rem), 480px);
     min-width: 0;
     overflow: hidden;
   }
@@ -2030,4 +2389,194 @@ p {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* CRO Updates: Best Seller Tag, Opening Hours & Reviews Section */
+.menu-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.best-seller-tag {
+  font-family: "Lilita One", "Baloo 2", sans-serif;
+  font-size: 0.68rem;
+  color: var(--white);
+  background: var(--orange);
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  padding: 0.05rem 0.35rem;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.opening-hours {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.8rem;
+  border: var(--outline);
+  border-radius: var(--radius);
+  background: var(--cream);
+  font-weight: 800;
+  font-size: 0.95rem;
+  width: fit-content;
+  box-shadow: var(--small-shadow);
+  margin-top: 0.5rem;
+}
+
+.hours-label {
+  color: var(--red);
+  text-transform: uppercase;
+  font-family: "Lilita One", sans-serif;
+  font-size: 1.05rem;
+}
+
+.reviews {
+  background: linear-gradient(135deg, rgba(60, 47, 114, 0.06), rgba(255, 255, 255, 0.28)), var(--white);
+  border-top: var(--outline);
+  border-bottom: var(--outline);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.5vw, 2.2rem);
+  margin-bottom: 2.5rem;
+}
+
+.review-card {
+  border: var(--outline);
+  border-radius: var(--radius);
+  background: var(--card-bg, var(--white));
+  box-shadow: var(--shadow);
+  padding: 1.4rem;
+  display: grid;
+  gap: 0.85rem;
+  transform: rotate(var(--tilt));
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.review-card:hover {
+  transform: scale(1.02) rotate(0deg);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.review-header .stars {
+  color: var(--orange);
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 var(--ink);
+}
+
+.review-date {
+  color: var(--purple);
+  font-family: "Lilita One", sans-serif;
+  text-transform: uppercase;
+}
+
+.review-text {
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.review-author {
+  font-family: "Lilita One", "Baloo 2", sans-serif;
+  color: var(--purple);
+  text-align: right;
+  margin: 0;
+  font-size: 1.15rem;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.reviews-summary-badge {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: fit-content;
+  margin: 2rem auto 0;
+  padding: 0.8rem 1.4rem;
+  border: var(--outline);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--small-shadow);
+}
+
+.rating-number {
+  font-family: "Bungee", sans-serif;
+  font-size: 2.2rem;
+  color: var(--red);
+  line-height: 1;
+}
+
+.rating-details {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.rating-details .stars {
+  color: var(--orange);
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 0 var(--ink);
+}
+
+.rating-count {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+@media (max-width: 1100px) {
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+  .review-card {
+    transform: rotate(0deg) !important;
+  }
+  .reviews-summary-badge {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ================================================================
+   MAGNETIC BUTTONS
+   .magnetic elements follow the cursor with a subtle translate.
+   The transition is intentionally loose so the spring-back feels
+   organic rather than snappy.
+   JS in Section 14 of script.js handles the mousemove/mouseleave.
+   ================================================================ */
+.magnetic {
+  /* Spring-back easing on mouseleave */
+  transition: transform 500ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.magnetic:hover {
+  will-change: transform;
+  /* transition is tighter on follow so it feels responsive */
+  transition: transform 80ms linear;
 }
