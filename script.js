@@ -1149,3 +1149,36 @@ runAnimations();
     }
   });
 })();
+
+/* =============================================================
+   SECTION 14 — MAGNETIC BUTTONS
+   Adds a cursor-follow translate effect to any element with the
+   class  .magnetic  on devices that support hover (pointer: fine).
+   Falls back silently on touch screens and for users who prefer
+   reduced motion.
+   ============================================================= */
+const setupMagneticButtons = () => {
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  const canHover = window.matchMedia(
+    "(hover: hover) and (pointer: fine)"
+  ).matches;
+  if (!canHover || prefersReducedMotion) return;
+
+  $$(`.magnetic`).forEach((button) => {
+    button.addEventListener("mousemove", (event) => {
+      const rect = button.getBoundingClientRect();
+      const x = event.clientX - rect.left - rect.width / 2;
+      const y = event.clientY - rect.top - rect.height / 2;
+      button.style.transform = `translate(${x * 0.12}px, ${y * 0.18}px)`;
+    });
+
+    button.addEventListener("mouseleave", () => {
+      // Smooth spring-back via CSS transition defined on .magnetic
+      button.style.transform = "";
+    });
+  });
+};
+
+setupMagneticButtons();

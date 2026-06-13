@@ -2562,3 +2562,21 @@ p {
     justify-content: center;
   }
 }
+
+/* ================================================================
+   MAGNETIC BUTTONS
+   .magnetic elements follow the cursor with a subtle translate.
+   The transition is intentionally loose so the spring-back feels
+   organic rather than snappy.
+   JS in Section 14 of script.js handles the mousemove/mouseleave.
+   ================================================================ */
+.magnetic {
+  /* Spring-back easing on mouseleave */
+  transition: transform 500ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.magnetic:hover {
+  will-change: transform;
+  /* transition is tighter on follow so it feels responsive */
+  transition: transform 80ms linear;
+}
