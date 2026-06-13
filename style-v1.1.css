@@ -423,6 +423,161 @@ p {
   transform: scaleX(1);
 }
 
+/* ── Contact Us — red rectangular CTA button in navbar ── */
+.nav-contact-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.52rem 1.1rem !important;
+  margin-left: 0.35rem;
+  background: var(--red) !important;
+  color: var(--white) !important;
+  border: var(--outline) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: 4px 4px 0 var(--ink);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition:
+    transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 160ms ease,
+    background 160ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-contact-btn::after {
+  /* underline override — remove the red underline bar */
+  display: none !important;
+}
+
+.nav-contact-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: background 280ms ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.nav-contact-btn:hover,
+.nav-contact-btn:focus-visible {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+  background: #b51b1b !important;
+}
+
+.nav-contact-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* Click ripple flash */
+.nav-contact-btn.is-clicked::before {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.nav-contact-btn svg {
+  flex: 0 0 auto;
+  opacity: 0.9;
+}
+
+/* ── Back to Top — floating fixed button ── */
+.back-to-top {
+  position: fixed;
+  bottom: 2.2rem;
+  right: 1.8rem;
+  z-index: 9000;
+  width: 3.4rem;
+  height: 3.4rem;
+  display: grid;
+  place-items: center;
+  /* Yellow bg — always visible against dark footer AND light sections */
+  background: var(--yellow);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  /* White glow + ink offset so it stands out on dark AND light backgrounds */
+  box-shadow:
+    0 0 0 2px var(--white),
+    6px 6px 0 var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  /* Hidden by default — shown via JS scroll listener */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1.2rem);
+  transition:
+    opacity 260ms ease,
+    transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+  overflow: hidden;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: var(--ink);
+  color: var(--yellow);
+  box-shadow:
+    0 0 0 2px var(--white),
+    8px 8px 0 var(--yellow);
+  outline: none;
+}
+
+.back-to-top:active {
+  transform: translateY(2px) scale(0.92);
+  box-shadow:
+    0 0 0 2px var(--white),
+    2px 2px 0 var(--ink);
+}
+
+/* Ripple pseudo-element on click */
+.back-to-top::before {
+  content: "";
+  position: absolute;
+  inset: 50% 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0ms, height 0ms, opacity 400ms ease;
+  opacity: 0;
+}
+
+.back-to-top.ripple::before {
+  width: 120%;
+  height: 120%;
+  opacity: 0;
+  transition: width 420ms ease, height 420ms ease, opacity 420ms ease;
+}
+
+.back-to-top svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Push the button up on mobile so it sits above the mobile action bar */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: calc(4.4rem + env(safe-area-inset-bottom, 0px));
+    right: 1rem;
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+}
+
 .nav-actions {
   display: flex;
   align-items: center;

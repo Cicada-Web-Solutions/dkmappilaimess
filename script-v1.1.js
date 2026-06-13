@@ -973,3 +973,80 @@ if (isHomePage) {
   renderMenu();
 }
 runAnimations();
+
+// ── Back to Top button ──
+(function () {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
+
+  // Show button after scrolling 300px
+  const SHOW_AFTER = 300;
+  let rafId = null;
+
+  function onScroll() {
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => {
+      btn.classList.toggle("is-visible", window.scrollY > SHOW_AFTER);
+      rafId = null;
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  btn.addEventListener("click", () => {
+    // CSS ripple effect
+    btn.classList.remove("ripple");
+    void btn.offsetWidth; // force reflow to restart animation
+    btn.classList.add("ripple");
+    setTimeout(() => btn.classList.remove("ripple"), 450);
+
+    if (typeof gsap !== "undefined") {
+      // Animate the arrow icon: bounce up then reset
+      gsap.fromTo(
+        btn.querySelector("svg"),
+        { y: 0 },
+        { y: -6, duration: 0.15, ease: "power2.out", yoyo: true, repeat: 1 },
+      );
+      // Press squish on the button itself
+      gsap.fromTo(
+        btn,
+        { scale: 1 },
+        { scale: 0.88, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 },
+      );
+    }
+
+    // Smooth scroll to top
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+
+// ── Contact Us nav button animation ──
+(function () {
+  const contactBtn = document.getElementById("nav-contact-btn");
+  if (!contactBtn) return;
+
+  contactBtn.addEventListener("click", () => {
+    // Flash the white overlay via CSS class
+    contactBtn.classList.add("is-clicked");
+    setTimeout(() => contactBtn.classList.remove("is-clicked"), 300);
+
+    if (typeof gsap !== "undefined") {
+      // Quick press-down squish
+      gsap.fromTo(
+        contactBtn,
+        { scale: 1 },
+        {
+          scale: 0.92,
+          duration: 0.1,
+          ease: "power2.in",
+          yoyo: true,
+          repeat: 1,
+          onComplete() {
+            // Spring back with a little bounce
+            gsap.to(contactBtn, { scale: 1, duration: 0.28, ease: "back.out(3)" });
+          },
+        },
+      );
+    }
+  });
+})();
