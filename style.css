@@ -258,6 +258,12 @@ h1 {
   }
 }
 
+@media (max-width: 480px) {
+  .hero-title-word {
+    font-size: 3.5rem;
+  }
+}
+
 h2 {
   font-size: clamp(2.2rem, 5.8vw, 5rem);
   text-transform: uppercase;
@@ -739,6 +745,7 @@ p {
   min-height: 630px;
   position: relative;
   isolation: isolate;
+  z-index: 3;
 }
 
 .hero-logo-badge {
